@@ -1,0 +1,24 @@
+{% extends "base.html"%}
+{% include "partials/links.html"%}
+{% block content%}
+<div>
+    <button class="btn btn-warning">Lease</button>
+    <button class="btn btn-danger">Claim</button>
+</div>
+<div>
+  <a href="{% url 'book' %}" class="btn btn-warning">Add New Book</a>
+  <a href="{% url 'book-csv' %}" class="btn btn-outline-secondary">CSV</a>
+</div>
+<br>
+
+   
+   <h2>Title: {{bk.title}}</h2>
+   <h2>Category: {{bk.category}}</h2> 
+   <h2>Description: {{bk.description}}</h2>
+   <h2>Serial_Number: {{bk.s_number}}</h2>
+   
+      
+<br>
+
+
+{% endblock %}

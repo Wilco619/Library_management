@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+</head>
+<body>
+{% extends "base.html"%}
+{%include "partials/links.html"%}
+{% block content%}
+    
+    <br>
+    <div class="grid-container">
+      <a href="{% url 'books' %}">
+        <div class="grid-item">
+          <div id="cardcontainer">
+            <div class="cardcontainer1">
+              <h1>{{b_count}}</h1>
+              <p>books</p>
+            </div>
+            <i class="fa fa-thin fa-book"></i>
+          </div>
+        </div>
+      </a>      
+      <a href="{% url 'members' %}">
+        <div class="grid-item">
+          <div id="cardcontainer">
+            <div class="cardcontainer1">
+              <h1>{{m_total}}</h1>
+              <p>Members</p>
+            </div>
+            <i class="fa fa-light fa-users"></i>
+          </div>
+        </div>
+      </a>
+      <a href="#">
+        <div class="grid-item">
+          <div id="cardcontainer">
+            <div class="cardcontainer1">
+              <h1>150</h1>
+              <p>Magazines</p>
+            </div>
+            <i class="fa fa-solid fa-layer-group"></i>
+          </div>
+        </div>
+      </a>
+      <a href="#">
+        <div class="grid-item">
+          <div id="cardcontainer">
+            <div class="cardcontainer1">
+              <h1>313</h1>
+              <p>Newspapers</p>
+            </div>
+            <i class="fa fa-duotone fa-file"></i>
+          </div>
+        </div>   
+      </a>    
+      
+    </div>
+
+    <hr>
+    <h1>Today's Transactions</h1>
+    <br>
+    
+
+    <div class="grid-container">    
+      <a href="#">
+        <div class="grid-item1">
+          <div id="cardcontainer1">
+            <div class="cardcontainer2issued">
+              <h1>Issued</h1>
+              <p>825</p>
+            </div>
+            <i id="issued" class="fa fa-thin fa-hand-holding"></i>
+          </div>
+        </div>
+      </a> 
+      <a href="#">
+        <div class="grid-item">
+          <div id="cardcontainer1">
+            <div class="cardcontainer2returned">
+              <h1>Returned</h1>
+              <p>825</p>
+            </div>
+            <i id="returned" class="fa fa-duotone fa-thumbs-up"></i>
+          </div>
+        </div>
+      </a> 
+      <a href="#">
+        <div class="grid-item">
+          <div id="cardcontainer1">
+            <div class="cardcontainer2pending">
+              <h1>Reserved</h1>
+              <p>825</p>
+            </div>
+            <i id="date" class="fa fa-duotone fa-briefcase"></i>
+          </div>
+        </div>
+      </a> 
+      <a href="#">
+        <div class="grid-item">
+          <div id="cardcontainer1">
+            <div class="cardcontainer2date">
+              <h1>Violations</h1>
+              <p>825</p>
+            </div>
+            <i id="pending" class="fa fa-duotone fa-thumbs-down"></i>
+          </div>
+        </div>
+      </a>   
+    </div>
+
+    <hr>
+    <h1>All Transactions</h1>
+    <br>
+    
+
+    <div class="grid-container">    
+      <a href="#">
+        <div class="grid-item1">
+          <div id="cardcontainer1">
+            <div class="cardcontainer2issued">
+              <h1>Issued</h1>
+              <p>825</p>
+            </div>
+            <i id="issued" class="fa fa-thin fa-hand-holding"></i>
+          </div>
+        </div>
+      </a> 
+      <a href="#">
+        <div class="grid-item">
+          <div id="cardcontainer1">
+            <div class="cardcontainer2returned">
+              <h1>Returned</h1>
+              <p>825</p>
+            </div>
+            <i id="returned" class="fa fa-duotone fa-thumbs-up"></i>
+          </div>
+        </div>
+      </a> 
+      <a href="#">
+        <div class="grid-item">
+          <div id="cardcontainer1">
+            <div class="cardcontainer2pending">
+              <h1>Reserved</h1>
+              <p>825</p>
+            </div>
+            <i id="date" class="fa fa-duotone fa-briefcase"></i>
+          </div>
+        </div>
+      </a> 
+      <a href="#">
+        <div class="grid-item">
+          <div id="cardcontainer1">
+            <div class="cardcontainer2date">
+              <h1>Violations</h1>
+              <p>825</p>
+            </div>
+            <i id="pending" class="fa fa-duotone fa-thumbs-down"></i>
+          </div>
+        </div>
+      </a>   
+    </div>
+
+       
+{%endblock%}
+</body>
+</html>

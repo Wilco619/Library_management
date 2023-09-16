@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+</head>
+{% load static %}
+<body>
+    {% if request.user.is_authenticated %}
+        <div id="container0">
+            <div id="container1">
+                {% block content1%}
+                
+                <div id="sidelist">
+                    <div id="brand">
+                        <a class="brand" href="#"><span>Get</span>smart</a>
+                   </div>
+                   <hr>
+                    <ul class="content">
+                        <a class="side" href="{% url 'home' %}"><li><i class="fa fa-duotone fa-gauge-high"></i>Dashboard</li></a>
+                        <hr>
+                        <a class="side" href="{% url 'members' %}"><li><i class="fa fa-light fa-users"></i>Members</li></a>
+                        <a class="side" href="{% url 'books' %}"><li><i class="fa fa-thin fa-book"></i>Books</li></a>
+                        <a class="side" href="#"><li><i class="fa fa-solid fa-layer-group"></i>Magazines</li></a>
+                        <a class="side" href="#"><li><i class="fa fa-duotone fa-file"></i>Newspapers</li></a>
+                        <hr>
+                        <a class="side" href="#"><li>Issued</li></a>
+                        <a class="side" href="#"><li>Borrowed</li></a>
+                        <a class="side" href="#"><li>Not Returned</li></a>
+                        <hr>
+                        <a class="side" href="#"><li>Action</li></a>
+                        <hr>
+                        <a class="side" href="#"><li>Settings</li></a>
+                    </ul>
+                </div>                
+                <a href=""><button class="btn btn-warning">Profile</button></a>
+                <a href="{% url 'logoutForm' %}"><button class="btn btn-danger">Logout</button></a>
+                
+                {% endblock%}
+            </div>
+            <div id="container2">   
+                {% include "partials/navbar.html"%}
+                    {% if messages %}
+                    {% for msg in messages %}
+                    <div class="alert alert-danger{{msg.tags}}" role="alert">
+                        {{msg}}
+                    </div>
+                    {%endfor%}
+                    {%endif%}
+
+                    {% if query %}
+                    <div>
+                        <div>
+                        <!-- check if there is a result in the database-->
+                        {% if posts %}
+                            <!-- loop through search query if there is a result -->
+                            {% for post in posts %}
+                                <h1>You searched for {{query}}</h1>
+                                <div>
+                                    <!-- return search query -->
+                                    <p>{{post.name}}</p>
+                                </div>
+                            {% endfor %}
+                            <!-- return a message if there are no results found. -->
+                        {% else %}
+                            <h1>No search results found</h1>
+                        {% endif %}
+                        </div>
+                    </div>
+                     {% else %}
+                    <h1 style="visibility: hidden;">Please enter a search query</h1>
+                    {% endif %}
+                {% block content%}
+
+                
+                    
+    
+                {% endblock%}
+            </div>
+        </div>
+    {% include "partials/footer.html"%}
+    {%endif%}
+</body>
+</html>

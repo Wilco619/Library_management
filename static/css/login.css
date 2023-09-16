@@ -1,0 +1,44 @@
+body {
+    background-color: rgb(255, 255, 255);
+}
+.login{
+  
+    height: 60vh;
+    margin-top: 8%;
+}
+.logo{
+    padding: 20px;
+}
+.logo span{
+    color: darkolivegreen;
+}
+label{
+    color: aliceblue;
+    margin-right: 5px;
+}
+form{
+    text-align: center;
+    justify-content: center;
+}
+form input{
+    padding: 5px;
+    margin: 5px;
+}
+
+form button {
+    padding: 10px;
+    color: aliceblue;
+    border-radius: 5px;
+    outline: none;
+    background-color: rgb(62, 168, 78);
+}
+.logincard{
+    padding: auto;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+    width: 30vw;
+    height: 70vh;
+    background-color: rgb(43, 75, 64);
+}

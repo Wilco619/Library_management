@@ -1,0 +1,16 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding-left: 10px;
+  }
+  th {
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    border: 1px solid rgb(24, 24, 24);
+    background-color: #000000;
+  }
+
+  .btn{
+    margin: 5px;
+    padding: auto;
+  }
