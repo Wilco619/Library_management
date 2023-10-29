@@ -17,6 +17,8 @@ urlpatterns = [
     path('search/', views.search_feature, name='search-view'),
 
     path('book-search/', views.search_book, name='search-book'),
+    path('popup/<popk>/', views.pop, name='popup'),
+
 
 
     path("update-member/<upk>/",views.update_member, name="update-member"),

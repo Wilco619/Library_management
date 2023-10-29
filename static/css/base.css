@@ -16,9 +16,19 @@ body {
 }
 
 #container0 {
-    display: flex;
+    
+    padding: 5px;
     height: 90vh;
 }
+
+.grid-container{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+.grid-itemt{
+    grid-column: span 3;
+}
+
 
 #container1{
     left: 0;
@@ -32,7 +42,7 @@ body {
 #container2 {
     width: 85%;
     right: 0;
-    padding: 20px;
+    padding: 10px;
 }
 
 #sidelist ul li{

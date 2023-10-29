@@ -32,7 +32,7 @@ table, th, td {
 }
 .cardcontainer2issued, .cardcontainer2returned, .cardcontainer2pending, .cardcontainer2date{
     padding: 10px;
-    background-color: goldenrod;
+    background-color: #088395;
     
 }
 
@@ -82,7 +82,8 @@ p {
   .grid-item {
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 100%;
+
+    grid-column: span 2;
     font-size: 20px;
     text-align: left;
     transition: .09s ease-in-out;
@@ -90,7 +91,8 @@ p {
   .grid-item1{
     background-color: rgba(6, 63, 100, 0.699);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 100%;
+
+    grid-column: span 2;
     font-size: 20px;
     text-align: left;
     transition: .09s ease-in-out;
@@ -104,9 +106,9 @@ p {
     transform: scale(1.0) translateY(-1%);
     cursor: pointer;
   }
+  
 
-  #mychart{
-    margin: 50px;
-    max-width: 600px;
-  }
+
+
+  
   

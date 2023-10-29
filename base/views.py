@@ -25,6 +25,10 @@ def home(request):
     b_count = Book.objects.count()
     return render(request, 'index.html', locals())
 
+def pop(request,popk):
+    m_details = get_object_or_404(Member, pk=popk)
+    return render(request,"partials/popup.html", locals())
+
 def books(request):
 
     #set up pagination

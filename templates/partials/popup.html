@@ -1,0 +1,22 @@
+
+{% include "partials/links.html"%}
+{% block content%}
+
+    <div class="popup-layer">
+        <div class="popup-card">
+            <div class="popup-content">
+                <h1>You are about to delete</h1>
+                <h1>Name: {{m_details.name}}</h1>
+                <h1>RegNo: {{m_details.regNo}}</h1>
+                <h1>Details</h1>
+
+            </div>
+            <hr>
+        
+            <a href="{% url 'mdetails' m_details.pk%}"><button class="btn btn-outline-secondary">Close</button></a></td>
+            <a href="{% url 'delete-member' m_details.pk%}"><button class="btn btn-outline-danger">Delete</button></a></td>
+
+        </div>
+    </div>
+       
+{% endblock%}

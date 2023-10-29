@@ -8,8 +8,8 @@
 {% load static %}
 <body>
     {% if request.user.is_authenticated %}
-        <div id="container0">
-            <div id="container1">
+        <div id="container0" class="grid-container">
+            <div id="container1" class="grid-items">
                 {% block content1%}
                 
                 <div id="sidelist">
@@ -39,7 +39,7 @@
                 
                 {% endblock%}
             </div>
-            <div id="container2">   
+            <div id="container2" class="grid-itemt">   
                 {% include "partials/navbar.html"%}
                     {% if messages %}
                     {% for msg in messages %}
