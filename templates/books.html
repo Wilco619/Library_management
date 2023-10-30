@@ -1,90 +1,90 @@
 {% extends "base.html"%}
 {% include "partials/links.html"%}
 {% block content%}
+{% if request.user.is_authenticated %}
+  <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
 
-<nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container">
+      <div>
+        <button class="btn btn-warning">Available Books</button>
+          <button class="btn btn-danger">Not Available</button>
+          <a href="{% url 'book' %}" class="btn btn-warning">Add New Book</a>
+          <a href="{% url 'book-csv' %}" class="btn btn-outline-secondary">CSV</a>
+      </div>
+          
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <!--  -->
+        </ul>
 
-    <div>
-      <button class="btn btn-warning">Available Books</button>
-        <button class="btn btn-danger">Not Available</button>
-        <a href="{% url 'book' %}" class="btn btn-warning">Add New Book</a>
-        <a href="{% url 'book-csv' %}" class="btn btn-outline-secondary">CSV</a>
-    </div>
-        
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!--  -->
-      </ul>
+        <form class="d-flex" role="search" method="post" action="{% url 'search-book' %}">
+          {% csrf_token %}
+          <input class="form-control me-2" type="search" placeholder="Search" name="book_search" required-aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      
 
-      <form class="d-flex" role="search" method="post" action="{% url 'search-book' %}">
-        {% csrf_token %}
-        <input class="form-control me-2" type="search" placeholder="Search" name="book_search" required-aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      </div>
     
-
     </div>
-   
-  </div>
-</nav>
+  </nav>
 
-<br>
-<table style="width:100%" class="table table-striped table-hover table-sm">
-    <tr class="table-dark">
-      <th>ID:</th>
-      <th>Category:</th>
-      <th>Title:</th>
-      <th>Serial_number:</th>
-      <th>Description:</th>
-      <th>Leased To:</th>
-      <th>Details:</th>
-    </tr>
-    {% for bk in book %}
-    <tr>
-      <td>{{forloop.counter}}</td>
-      <td>{{bk.category}}</td>
-      <td>{{bk.title}}</td>
-      <td>{{bk.s_number}}</td>
-      <td>{{bk.description}}</td>
-      <td><a href="">RegNo</a></td>
-      <td><a href="{% url 'book-details' bk.pk %}"><button class="btn btn-outline-secondary">Explore</button></a></td>
-    </tr>
-    {%endfor%}
+  <br>
+  <table style="width:100%" class="table table-striped table-hover table-sm">
+      <tr class="table-dark">
+        <th>ID:</th>
+        <th>Category:</th>
+        <th>Title:</th>
+        <th>Serial_number:</th>
+        <th>Description:</th>
+        <th>Leased To:</th>
+        <th>Details:</th>
+      </tr>
+      {% for bk in book %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{bk.category}}</td>
+        <td>{{bk.title}}</td>
+        <td>{{bk.s_number}}</td>
+        <td>{{bk.description}}</td>
+        <td><a href="">RegNo</a></td>
+        <td><a href="{% url 'book-details' bk.pk %}"><button class="btn btn-outline-secondary">Explore</button></a></td>
+      </tr>
+      {%endfor%}
 
-    {% for b in books %}
-    <tr>
-      <td>{{forloop.counter}}</td>
-      <td>{{b.category}}</td>
-      <td>{{b.title}}</td>
-      <td>{{b.s_number}}</td>
-      <td>{{b.description}}</td>
-      <td><a href="">RegNo</a></td>
-      <td><a href="{% url 'book-details' b.pk %}"><button class="btn btn-outline-secondary">Explore</button></a></td>
-    </tr>
-    {% endfor %}
-  </table>
-  <hr>
-  <div>
+      {% for b in books %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{b.category}}</td>
+        <td>{{b.title}}</td>
+        <td>{{b.s_number}}</td>
+        <td>{{b.description}}</td>
+        <td><a href="">RegNo</a></td>
+        <td><a href="{% url 'book-details' b.pk %}"><button class="btn btn-outline-secondary">Explore</button></a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    <hr>
+    <div>
 
-    <nav aria-label="...">
-      <ul class="pagination">
-        
-        {% if book.has_previous %}
-           
-            <li class="page-item"><a class="page-link" href="?page={{ book.previous_page_number }}">Previous</a></li>
-        {% endif %}
+      <nav aria-label="...">
+        <ul class="pagination">
+          
+          {% if book.has_previous %}
+            
+              <li class="page-item"><a class="page-link" href="?page={{ book.previous_page_number }}">Previous</a></li>
+          {% endif %}
 
-        <li class="page-item disabled"><a class="page-link" href="#">Page {{ book.number }} of {{ book.paginator.num_pages }}</a></li>
+          <li class="page-item disabled"><a class="page-link" href="#">Page {{ book.number }} of {{ book.paginator.num_pages }}</a></li>
 
-        {% if book.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ book.next_page_number }}">next</a></li>
-        
-        {% endif %}
+          {% if book.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ book.next_page_number }}">next</a></li>
+          
+          {% endif %}
 
-      </ul>
-    </nav>
-  </div>
-  <hr>
-
+        </ul>
+      </nav>
+    </div>
+    <hr>
+{%endif%}
 {% endblock %}

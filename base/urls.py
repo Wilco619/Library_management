@@ -24,6 +24,9 @@ urlpatterns = [
     path("update-member/<upk>/",views.update_member, name="update-member"),
     path("delete-member/<dpk>/",views.delete_member, name="delete-member"),
 
+    path("update-bk/<ubpk>/",views.update_book, name="update-bk"),
+    path("delete-bk/<dbpk>/",views.delete_book, name="delete-bk"),
+
     path("member-csv",views.member_csv, name="member-csv"),
     path("book-csv",views.book_csv, name="book-csv"),
 

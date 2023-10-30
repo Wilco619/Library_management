@@ -43,33 +43,56 @@
                 {% include "partials/navbar.html"%}
                     {% if messages %}
                     {% for msg in messages %}
-                    <div class="alert alert-danger{{msg.tags}}" role="alert">
+                    <div class="alert alert-danger bg-body-tertiary{{msg.tags}}" role="alert">
                         {{msg}}
                     </div>
                     {%endfor%}
                     {%endif%}
 
-                    {% if query %}
-                    <div>
+                    {% if m_query  %}
                         <div>
-                        <!-- check if there is a result in the database-->
-                        {% if posts %}
-                            <!-- loop through search query if there is a result -->
-                            {% for post in posts %}
-                                <h1>You searched for {{query}}</h1>
-                                <div>
-                                    <!-- return search query -->
-                                    <p>{{post.name}}</p>
-                                </div>
-                            {% endfor %}
-                            <!-- return a message if there are no results found. -->
-                        {% else %}
-                            <h1>No search results found</h1>
-                        {% endif %}
+                            <div>
+                            <!-- check if there is a result in the database-->
+                            {% if mpost %}
+                                <!-- loop through search query if there is a result -->
+                                {% for post in mpost %}
+                                    <h1>You searched for {{m_query}}</h1>
+                                    <div>
+                                        <!-- return search query -->
+                                        <p>{{post.name}}</p>
+                                    </div>
+                                {% endfor %}
+                                <!-- return a message if there are no results found. -->
+                            {% else %}
+                                <h1>No search results found</h1>
+                            {% endif %}
+                            </div>
                         </div>
-                    </div>
-                     {% else %}
-                    <h1 style="visibility: hidden;">Please enter a search query</h1>
+                    {% else %}
+                        <h1 style="visibility: hidden;">Please enter a search query</h1>
+                    {% endif %}
+
+                    {% if b_query  %}
+                        <div>
+                            <div>
+                            <!-- check if there is a result in the database-->
+                            {% if bpost %}
+                                <!-- loop through search query if there is a result -->
+                                {% for post in bpost %}
+                                    <h1>You searched for {{b_query}}</h1>
+                                    <div>
+                                        <!-- return search query -->
+                                        <p>{{post.name}}</p>
+                                    </div>
+                                {% endfor %}
+                                <!-- return a message if there are no results found. -->
+                            {% else %}
+                                <h1>No search results found</h1>
+                            {% endif %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <h1 style="visibility: hidden;">Please enter a search query</h1>
                     {% endif %}
                 {% block content%}
 

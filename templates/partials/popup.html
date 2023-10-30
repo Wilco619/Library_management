@@ -1,7 +1,7 @@
 
 {% include "partials/links.html"%}
 {% block content%}
-
+{% if request.user.is_authenticated %}
     <div class="popup-layer">
         <div class="popup-card">
             <div class="popup-content">
@@ -18,5 +18,5 @@
 
         </div>
     </div>
-       
+{%endif%}
 {% endblock%}

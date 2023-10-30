@@ -9,6 +9,7 @@
 {% extends "base.html"%}
 {%include "partials/links.html"%}
 {% block content%}
+{% if request.user.is_authenticated %}
     
     <br>
     <div class="grid-container">
@@ -151,9 +152,7 @@
       </a>
       
     </div>
-
-    
-       
+{%endif%}
 {%endblock%}
 </body>
 </html>

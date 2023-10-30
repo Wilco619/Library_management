@@ -1,49 +1,49 @@
 {% extends "base.html"%}
 {% include "partials/links.html"%}
 {% block content%}
-
-<div>
+{% if request.user.is_authenticated %}
   <div>
-    <h1>member details</h1>
-    <h2>Name: {{m_details.name}}</h2>
-    <h2>RegNo: {{m_details.regNo}}</h2>
-    <h2>contact: {{m_details.contact}}</h2>
+    <div>
+      <h1>member details</h1>
+      <h2>Name: {{m_details.name}}</h2>
+      <h2>RegNo: {{m_details.regNo}}</h2>
+      <h2>contact: {{m_details.contact}}</h2>
 
-    
-    <a href="{% url 'update-member' m_details.pk%}"><button class="btn btn-outline-secondary">Update</button></a></td>
-    <a href="{% url 'popup' m_details.pk %}"><button class="btn btn-outline-danger">Delete</button></a></td> 
+      
+      <a href="{% url 'update-member' m_details.pk%}"><button class="btn btn-outline-secondary">Update</button></a></td>
+      <a href="{% url 'popup' m_details.pk %}"><button class="btn btn-outline-danger">Delete</button></a></td> 
+    </div>
+    <br>
+    <div>
+      <a href="#"><button class="btn btn-danger">Issue A Book</button></a>
+      <a href="#"><button class="btn btn-danger">Claim Book</button></a>
+    </div>
   </div>
   <br>
-  <div>
-    <a href="#"><button class="btn btn-danger">Issue A Book</button></a>
-    <a href="#"><button class="btn btn-danger">Claim Book</button></a>
-  </div>
-</div>
-<br>
-<h2>Books:</h2>
+  <h2>Books:</h2>
 
-<table style="width:100%">
-    <tr>
-      <th>ID:</th>
-      <th>Category:</th>
-      <th>Title:</th>
-      <th>Serial_number:</th>
-      <th>Description:</th>
-      <th>Status:</th>
-    </tr>
-    {% for bk in book %}
-    <tr>
-      <td>{{forloop.counter}}</td>
-      <td>{{bk.category}}</td>
-      <td>{{bk.title}}</td>
-      <td>{{bk.s_number}}</td>
-      <td>{{bk.description}}</td>
-      <td>Available</td>
-    </tr>
-    {%endfor%}
-  </table>
+  <table style="width:100%">
+      <tr>
+        <th>ID:</th>
+        <th>Category:</th>
+        <th>Title:</th>
+        <th>Serial_number:</th>
+        <th>Description:</th>
+        <th>Status:</th>
+      </tr>
+      {% for bk in book %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{bk.category}}</td>
+        <td>{{bk.title}}</td>
+        <td>{{bk.s_number}}</td>
+        <td>{{bk.description}}</td>
+        <td>Available</td>
+      </tr>
+      {%endfor%}
+    </table>
 
-    
-  </table>
-
+      
+    </table>
+{%endif%}
 {% endblock %}

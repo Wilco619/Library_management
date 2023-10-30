@@ -6,7 +6,7 @@ from django.db import models
 class Member(models.Model):
     name = models.CharField(max_length=255)
     regNo = models.CharField(max_length=50)
-    contact = models.IntegerField(default=0)
+    contact = models.IntegerField(default="")
 
 
     def __str__(self):

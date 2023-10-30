@@ -1,6 +1,7 @@
 {% extends "base.html"%}
 {% include "partials/links.html"%}
 {% block content%}
+{% if request.user.is_authenticated %}
     {%if mem == 'create' %}
         <div class="col-sm-8 offset-sm-1">
           <form action="" method="post">
@@ -24,4 +25,5 @@
           </form>
         </div>
     {%endif%}
+{%endif%}
 {% endblock%}

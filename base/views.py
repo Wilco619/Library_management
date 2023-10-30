@@ -92,7 +92,14 @@ def mdetails(request, pk):
 def delete_member(request,dpk):
     m_details = get_object_or_404(Member,pk=dpk)
     m_details.delete()
+    messages.success(request,"Member Deleted Successfully")
     return redirect('members')
+
+def delete_book(request,dbpk):
+    book_details = get_object_or_404(Book,pk=dbpk)
+    book_details.delete()
+    messages.success(request,"Book Deleted Successfully")
+    return redirect('books')
 
 def update_member(request, upk):
      m_details = get_object_or_404(Member, pk=upk)
@@ -110,6 +117,24 @@ def update_member(request, upk):
         messages.warning(request,"Update Member Data!")
      
      return render(request, 'update-member.html',locals())
+
+def update_book(request, ubpk):
+     book_details = get_object_or_404(Book, pk=ubpk)
+     form = BookRegForm(request.POST or None, instance=book_details)
+     if form.is_valid():
+        update = Book.objects.get(pk=ubpk)
+        update.category = form.cleaned_data['category']
+        update.title = form.cleaned_data['title']
+        update.s_number = form.cleaned_data['s_number']
+        update.description = form.cleaned_data['description']
+
+        update.save()
+        messages.success(request,"Congratulations! Book Updated Successfully")
+        return redirect('books')
+     else:
+        messages.warning(request,"Update Book Data!")
+     
+     return render(request, 'update-book.html',locals())
 
 #memberreg
 class MemberView(View):
@@ -179,8 +204,8 @@ class MemberList(ExportMixin, SingleTableView):
 def search_feature(request):
     if request.method == 'POST':
         search_query = request.POST['search_query']
-        posts = Member.objects.filter(Q(name__icontains=search_query) | Q(regNo__icontains=search_query))
-        return render(request, 'members.html', {'query':search_query, 'posts':posts})
+        mpost = Member.objects.filter(Q(name__icontains=search_query) | Q(regNo__icontains=search_query))
+        return render(request, 'members.html', {'m_query':search_query, 'mpost':mpost})
     else:
         return render(request, 'base.html',{})
     
@@ -189,7 +214,7 @@ def search_book(request):
     if request.method == 'POST':
         book_search = request.POST['book_search']
         bpost = Book.objects.filter(Q(title__icontains=book_search) | Q(category__icontains=book_search))
-        return render(request, 'books.html', {'query':book_search, 'books':bpost})
+        return render(request, 'books.html', {'b_query':book_search, 'bpost':bpost})
     else:
         return render(request, 'base.html',{})
     

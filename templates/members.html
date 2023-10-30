@@ -2,102 +2,102 @@
 {% include "partials/links.html"%}
 {% block content%}
 
-
-<nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container">
-    <div>
-      <a href="{% url 'member' %}" class="btn btn-warning">Add New Member</a>
-      <a href="{% url 'member-csv' %}" class="btn btn-outline-secondary">CSV</a>
-    
-    </div>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!--  -->
-      </ul>
-
-      <form class="d-flex" role="search" method="post" action="{% url 'search-view' %}">
-        {% csrf_token %}
-        <input class="form-control me-2" type="search" placeholder="Search" name="search_query" required-aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    
-
-    </div>
+{% if request.user.is_authenticated %}
+  <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+      <div>
+        <a href="{% url 'member' %}" class="btn btn-warning">Add New Member</a>
+        <a href="{% url 'member-csv' %}" class="btn btn-outline-secondary">CSV</a>
       
-  </div>
-</nav>
+      </div>
 
-<br>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <!--  -->
+        </ul>
 
-<div class="" style="background-color: rgba(255, 255, 255, 0.452); padding: 5px;">
-  
-  <table style="width:100%;" id="tbl" class="table table-striped table-hover table-sm">
-    <tr class="tbl table-dark" scope="col">
-      <th>ID:</th>
-      <th>First Name:</th>
-      <th>RegNo:</th>
-      <th>Contact:</th>
-      <th>Details:</th>
-    </tr>
-    
-    {% for mem in member%}
-    <tbody class="table-group-divider">
-      <tr>
-        <td>{{forloop.counter}}</td>
-        <td>{{mem.name}}</td>
-        <td>{{mem.regNo}}</td>
-        <td>{{mem.contact}}</td>
-        <td><a href="{% url 'mdetails' mem.pk%}"><button class="btn btn-outline-success">View</button></a></td>
-      </tr>
-    </tbody>
-    
-    
-    {% endfor %}
+        <form class="d-flex" role="search" method="post" action="{% url 'search-view' %}">
+          {% csrf_token %}
+          <input class="form-control me-2" type="search" placeholder="Search" name="search_query" required-aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      
 
-    {% for p in posts%}
-    <tbody class="table-group-divider">
-      <tr>
-        <td>{{forloop.counter}}</td>
-        <td>{{p.name}}</td>
-        <td>{{p.regNo}}</td>
-        <td>{{p.contact}}</td>
-        <td><a href="{% url 'mdetails' p.pk%}" ><button class="btn btn-outline-danger " >View</button></a></td>
-      </tr>
-
-    </tbody>
-    
-    {%endfor%}
-    
-  </table>
-  
-  <hr>
-  <div>
-
-    <nav aria-label="...">
-      <ul class="pagination">
+      </div>
         
-        {% if member.has_previous %}
-           
-            <li class="page-item"><a class="page-link" href="?page={{ member.previous_page_number }}">Previous</a></li>
-        {% endif %}
+    </div>
+  </nav>
 
-        <li class="page-item disabled"><a class="page-link" href="#">Page {{ member.number }} of {{ member.paginator.num_pages }}</a></li>
+  <br>
 
-        {% if member.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ member.next_page_number }}">next</a></li>
-        
-        {% endif %}
-
-      </ul>
-    </nav>
-  </div>
-  <hr>
-
+  <div class="" style="background-color: rgba(255, 255, 255, 0.452); padding: 5px;">
     
-  
-</div>
+    <table style="width:100%;" id="tbl" class="table table-striped table-hover table-sm">
+      <tr class="tbl table-dark" scope="col">
+        <th>ID:</th>
+        <th>First Name:</th>
+        <th>RegNo:</th>
+        <th>Contact:</th>
+        <th>Details:</th>
+      </tr>
+      
+      {% for mem in member%}
+      <tbody class="table-group-divider">
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{mem.name}}</td>
+          <td>{{mem.regNo}}</td>
+          <td>{{mem.contact}}</td>
+          <td><a href="{% url 'mdetails' mem.pk%}"><button class="btn btn-outline-success">View</button></a></td>
+        </tr>
+      </tbody>
+      
+      
+      {% endfor %}
+
+      {% for p in posts%}
+      <tbody class="table-group-divider">
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{p.name}}</td>
+          <td>{{p.regNo}}</td>
+          <td>{{p.contact}}</td>
+          <td><a href="{% url 'mdetails' p.pk%}" ><button class="btn btn-outline-danger " >View</button></a></td>
+        </tr>
+
+      </tbody>
+      
+      {%endfor%}
+      
+    </table>
+    
+    <hr>
+    <div>
+
+      <nav aria-label="...">
+        <ul class="pagination">
+          
+          {% if member.has_previous %}
+            
+              <li class="page-item"><a class="page-link" href="?page={{ member.previous_page_number }}">Previous</a></li>
+          {% endif %}
+
+          <li class="page-item disabled"><a class="page-link" href="#">Page {{ member.number }} of {{ member.paginator.num_pages }}</a></li>
+
+          {% if member.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ member.next_page_number }}">next</a></li>
+          
+          {% endif %}
+
+        </ul>
+      </nav>
+    </div>
+    <hr>
+
+      
+    
+  </div>
 
 
-
+{%endif%}
 {% endblock %}

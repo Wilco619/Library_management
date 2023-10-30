@@ -3,17 +3,14 @@
 {% block content%}
 {% if request.user.is_authenticated %}
     <div>
-
         <form action="" method="POST">
             {% csrf_token %}
             {{form.as_p}}
             <br>
             <input type="submit" value="Update" class="btn btn-secondary" >
         </form>
-
-
     </div>
     <br>
 
-{% endif %}
+{%endif%}
 {% endblock %}
