@@ -1,7 +1,11 @@
 {% extends "base.html"%}
 {% include "partials/links.html"%}
 {% block content%}
+{% load static %}
 {% if request.user.is_authenticated %}
+  <a href="{% url 'books' %}"><img class="angleft" src="{% static 'images/angle-left-solid.svg' %}" alt="left-angle-bracket"> Back</a>
+  <br>
+  <br>
   <div>
       <button class="btn btn-warning">Lease</button>
       <button class="btn btn-danger">Claim</button>
@@ -21,7 +25,46 @@
         
   <br>
   <a href="{% url 'update-bk' bk.pk%}"><button class="btn btn-outline-secondary">Update</button></a></td>
-  <a href="{% url 'delete-bk' bk.pk %}"><button class="btn btn-outline-danger">Delete</button></a></td> 
+  <a href="#" onclick="return confirmbookDelete()">
+    <button class="btn btn-outline-danger">Delete</button>
+  </a></td> 
 
+  <!-- Bootstrap modal for displaying alerts -->
+<div class="modal" tabindex="-1" role="dialog" id="alertModal3" data-bs-backdrop="static">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Alert</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                  
+              </button>
+          </div>
+          <div class="modal-body">
+              <h1 id="alertMessage"></h1>
+          </div>
+          <div class="modal-footer">
+            <a href="{% url 'delete-bk' bk.pk %}"><button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Delete</button></a></td> 
+          </div>
+      </div>
+  </div>
+</div>
+
+<script>
+  function confirmbookDelete() {
+      var searchValue = document.getElementsByName('book_search')[0].value;
+
+      if (searchValue.trim() === "") {
+          // Set the alert message
+          document.getElementById('alertMessage').innerHTML = "Please enter a search term";
+
+          // Show the modal
+          $('#alertModal3').modal('show');
+
+          return false;
+      }
+
+      return true;
+  }
+</script>
 {%endif%}
 {% endblock %}

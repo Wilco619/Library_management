@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
+    {% load static %}
 </head>
-{% load static %}
+
 <body>
     {% if request.user.is_authenticated %}
         <div id="container0" class="grid-container">
@@ -33,9 +34,7 @@
                         <hr>
                         <a class="side" href="#"><li>Settings</li></a>
                     </ul>
-                </div>                
-                <a href=""><button class="btn btn-warning">Profile</button></a>
-                <a href="{% url 'logoutForm' %}"><button class="btn btn-danger">Logout</button></a>
+                </div>
                 
                 {% endblock%}
             </div>
@@ -43,25 +42,27 @@
                 {% include "partials/navbar.html"%}
                     {% if messages %}
                     {% for msg in messages %}
-                    <div class="alert alert-danger bg-body-tertiary{{msg.tags}}" role="alert">
+        
+                    <div class="alert {{msg.tags}}" role="alert">
                         {{msg}}
                     </div>
+            
                     {%endfor%}
                     {%endif%}
 
-                    {% if m_query  %}
+                    {% if mquery  %}
                         <div>
                             <div>
                             <!-- check if there is a result in the database-->
                             {% if mpost %}
                                 <!-- loop through search query if there is a result -->
-                                {% for post in mpost %}
-                                    <h1>You searched for {{m_query}}</h1>
+                                
+                                    <h1>You searched for {{mquery}}</h1>
                                     <div>
                                         <!-- return search query -->
-                                        <p>{{post.name}}</p>
+                                        <p>{{mpost.name}}</p>
                                     </div>
-                                {% endfor %}
+                                
                                 <!-- return a message if there are no results found. -->
                             {% else %}
                                 <h1>No search results found</h1>
@@ -72,19 +73,19 @@
                         <h1 style="visibility: hidden;">Please enter a search query</h1>
                     {% endif %}
 
-                    {% if b_query  %}
+                    {% if bquery  %}
                         <div>
                             <div>
                             <!-- check if there is a result in the database-->
                             {% if bpost %}
                                 <!-- loop through search query if there is a result -->
-                                {% for post in bpost %}
-                                    <h1>You searched for {{b_query}}</h1>
+                                
+                                    <h1>You searched for {{bquery}}</h1>
                                     <div>
                                         <!-- return search query -->
-                                        <p>{{post.name}}</p>
+                                        <p>{{bpost.name}}</p>
                                     </div>
-                                {% endfor %}
+                               
                                 <!-- return a message if there are no results found. -->
                             {% else %}
                                 <h1>No search results found</h1>
@@ -103,6 +104,9 @@
             </div>
         </div>
     {% include "partials/footer.html"%}
+    <script src="{% static 'js/search.js' %}"></script>
+    <script src="{% static 'js/chart.js'%}"></script>
+    
     {%endif%}
 </body>
 </html>

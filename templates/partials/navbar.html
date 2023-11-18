@@ -1,4 +1,5 @@
 {% include "partials/links.html"%}
+{%load static%}
 {% if request.user.is_authenticated %}
   <!--nav-->
   <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
@@ -15,7 +16,16 @@
       
 
       </div>
-        <button onclick="myFunction()">Toggle dark mode</button>
+      <div class="btn-group dropstart">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img class="profile" src="{% static 'images/user-regular.svg' %}" alt="profile-svg">
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="{% url 'logoutForm' %}">Logout</a></li>
+          <li><a class="dropdown-item" href="#">Action</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
   <!--endnav-->

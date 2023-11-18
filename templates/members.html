@@ -1,36 +1,34 @@
 {% extends "base.html"%}
 {% include "partials/links.html"%}
 {% block content%}
-
+{%load static%}
 {% if request.user.is_authenticated %}
-  <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container">
-      <div>
-        <a href="{% url 'member' %}" class="btn btn-warning">Add New Member</a>
-        <a href="{% url 'member-csv' %}" class="btn btn-outline-secondary">CSV</a>
-      
+    <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container">
+          <div>
+              <a href="{% url 'member' %}" class="btn btn-warning">Add New Member</a>
+              <a href="{% url 'member-csv' %}" class="btn btn-outline-secondary">CSV</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <!-- Navigation items go here -->
+              </ul>
+
+              <form class="d-flex" role="search" method="post" action="{% url 'search-view' %}" onsubmit="return validatememberSearch()">
+                  {% csrf_token %}
+                  <input class="form-control me-2" type="search" placeholder="Search" name="search_query" required-aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+
+          </div>
       </div>
+    </nav>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <!--  -->
-        </ul>
-
-        <form class="d-flex" role="search" method="post" action="{% url 'search-view' %}">
-          {% csrf_token %}
-          <input class="form-control me-2" type="search" placeholder="Search" name="search_query" required-aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      
-
-      </div>
-        
-    </div>
-  </nav>
 
   <br>
 
-  <div class="" style="background-color: rgba(255, 255, 255, 0.452); padding: 5px;">
+  <div id="table-m" style="background-color: rgba(255, 255, 255, 0.452); padding: 5px;">
     
     <table style="width:100%;" id="tbl" class="table table-striped table-hover table-sm">
       <tr class="tbl table-dark" scope="col">
@@ -55,14 +53,14 @@
       
       {% endfor %}
 
-      {% for p in posts%}
+      {% for p in mpost%}
       <tbody class="table-group-divider">
         <tr>
           <td>{{forloop.counter}}</td>
           <td>{{p.name}}</td>
           <td>{{p.regNo}}</td>
           <td>{{p.contact}}</td>
-          <td><a href="{% url 'mdetails' p.pk%}" ><button class="btn btn-outline-danger " >View</button></a></td>
+          <td><a href="{% url 'mdetails' p.pk%}" ><button class="btn btn-outline-success" >View</button></a></td>
         </tr>
 
       </tbody>
@@ -70,33 +68,70 @@
       {%endfor%}
       
     </table>
-    
-    <hr>
-    <div>
-
-      <nav aria-label="...">
-        <ul class="pagination">
-          
-          {% if member.has_previous %}
-            
-              <li class="page-item"><a class="page-link" href="?page={{ member.previous_page_number }}">Previous</a></li>
-          {% endif %}
-
-          <li class="page-item disabled"><a class="page-link" href="#">Page {{ member.number }} of {{ member.paginator.num_pages }}</a></li>
-
-          {% if member.has_next %}
-          <li class="page-item"><a class="page-link" href="?page={{ member.next_page_number }}">next</a></li>
-          
-          {% endif %}
-
-        </ul>
-      </nav>
-    </div>
-    <hr>
-
-      
-    
   </div>
+
+  <hr>
+  <div>
+
+    <nav aria-label="...">
+      <ul class="pagination">
+        
+        {% if member.has_previous %}
+          
+            <li class="page-item"><a class="page-link" href="?page={{ member.previous_page_number }}">Previous</a></li>
+        {% endif %}
+
+        <li class="page-item disabled"><a class="page-link" href="#">Page {{ member.number }} of {{ member.paginator.num_pages }}</a></li>
+
+        {% if member.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ member.next_page_number }}">next</a></li>
+        
+        {% endif %}
+
+      </ul>
+    </nav>
+  </div>
+  <hr>
+
+  <!-- Bootstrap modal for displaying alerts -->
+<div class="modal" tabindex="-1" role="dialog" id="alertModal2" data-bs-backdrop="static">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Alert</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                  
+              </button>
+          </div>
+          <div class="modal-body">
+              <h1 id="alertMessage"></h1>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+  <script>
+    function validatememberSearch() {
+        var searchValue = document.getElementsByName('search_query')[0].value;
+  
+        if (searchValue.trim() === "") {
+            // Set the alert message
+            document.getElementById('alertMessage').innerHTML = "Please enter a search term";
+  
+            // Show the modal
+            $('#alertModal2').modal('show');
+  
+            return false;
+        }
+  
+        return true;
+    }
+  </script>
+    
+  
 
 
 {%endif%}

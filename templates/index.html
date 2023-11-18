@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
+{% extends "base.html"%}
 </head>
 <body>
-{% extends "base.html"%}
 {%include "partials/links.html"%}
 {% block content%}
 {% if request.user.is_authenticated %}

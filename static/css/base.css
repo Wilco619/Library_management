@@ -7,7 +7,7 @@ body {
 
     background-color: white;
     color: black;
-  
+
 }
   
 .dark-mode {
@@ -16,33 +16,26 @@ body {
 }
 
 #container0 {
-    
-    padding: 5px;
-    height: 90vh;
-}
-
-.grid-container{
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 15% auto auto auto auto;
+    height: 100vh;
 }
-.grid-itemt{
-    grid-column: span 3;
-}
-
 
 #container1{
     left: 0;
     top: 0;
     bottom: 0;
-    width: 20%;
-    height: 100vh;
+    width: 15%;
+    position: fixed;
     background-color: darkslategray;
 }
 
 #container2 {
-    width: 85%;
-    right: 0;
+    width: 100%;
     padding: 10px;
+    float: right;
+    grid-column-start: 2;
+    grid-column-end: 6;
 }
 
 #sidelist ul li{

@@ -57,6 +57,7 @@ def book_details(request, bpk):
     bk = get_object_or_404(Book,pk=bpk)
     return render(request, 'bookdetails.html', locals())
 
+
 def member_csv(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition']='attachment; filename=members.csv'
@@ -92,13 +93,13 @@ def mdetails(request, pk):
 def delete_member(request,dpk):
     m_details = get_object_or_404(Member,pk=dpk)
     m_details.delete()
-    messages.success(request,"Member Deleted Successfully")
+    messages.success(request,"Member Deleted Successfully", extra_tags='alert-success')
     return redirect('members')
 
 def delete_book(request,dbpk):
     book_details = get_object_or_404(Book,pk=dbpk)
     book_details.delete()
-    messages.success(request,"Book Deleted Successfully")
+    messages.success(request,"Book Deleted Successfully", extra_tags='alert-success')
     return redirect('books')
 
 def update_member(request, upk):
@@ -111,10 +112,10 @@ def update_member(request, upk):
         update.contact = form.cleaned_data['contact']
 
         update.save()
-        messages.success(request,"Congratulations! Member Updated Successfully")
-        return redirect('members')
+        messages.success(request,"Congratulations! Member Updated Successfully", extra_tags='alert-success')
+        return redirect('mdetails', pk=upk)
      else:
-        messages.warning(request,"Update Member Data!")
+        messages.warning(request,"Update Member Data!", extra_tags='alert-secondary')
      
      return render(request, 'update-member.html',locals())
 
@@ -129,10 +130,10 @@ def update_book(request, ubpk):
         update.description = form.cleaned_data['description']
 
         update.save()
-        messages.success(request,"Congratulations! Book Updated Successfully")
-        return redirect('books')
+        messages.success(request,"Congratulations! Book Updated Successfully", extra_tags='alert-success')
+        return redirect('book-details', bpk=ubpk)
      else:
-        messages.warning(request,"Update Book Data!")
+        messages.warning(request,"Update Book Data!", extra_tags='alert-secondary')
      
      return render(request, 'update-book.html',locals())
 
@@ -154,13 +155,13 @@ class MemberView(View):
 
             try:
                 user = Member.objects.get(regNo=regNo)
-                messages.error(request, "Member Already Exists!")
+                messages.error(request, "Member Already Exists!", extra_tags='alert-danger')
             except Member.DoesNotExist:
                 reg = Member(name=name, regNo=regNo, contact=contact)
                 reg.save()
-                messages.success(request, "Congratulations! Member Saved Successfully.")
+                messages.success(request, "Congratulations! Member Saved Successfully.",extra_tags='alert-success')
         else:
-            messages.warning(request, "Invalid Data Input")
+            messages.warning(request, "Invalid Data Input", extra_tags='alert-danger')
 
         return render(request, "memberReg.html", locals())
 
@@ -183,13 +184,13 @@ class BookView(View):
 
             try:
                 item = Book.objects.get(s_number=s_number)
-                messages.error(request, "Book Already Exists!")
+                messages.error(request, "Book Already Exists!", extra_tags='alert-danger')
             except Book.DoesNotExist:
                 reg = Book(category=category, title=title, s_number=s_number, description=description)
                 reg.save()
-                messages.success(request, "Book Saved Successfully.")
+                messages.success(request, "Book Saved Successfully.", extra_tags='alert-success')
         else:
-            messages.warning(request, "Invalid Data Input")
+            messages.warning(request, "Invalid Data Input", extra_tags='alert-danger')
 
         return render(request, "bookReg.html", locals())
     
@@ -205,7 +206,7 @@ def search_feature(request):
     if request.method == 'POST':
         search_query = request.POST['search_query']
         mpost = Member.objects.filter(Q(name__icontains=search_query) | Q(regNo__icontains=search_query))
-        return render(request, 'members.html', {'m_query':search_query, 'mpost':mpost})
+        return render(request, 'members.html', {'mquery':search_query, 'mpost':mpost})
     else:
         return render(request, 'base.html',{})
     
@@ -214,7 +215,7 @@ def search_book(request):
     if request.method == 'POST':
         book_search = request.POST['book_search']
         bpost = Book.objects.filter(Q(title__icontains=book_search) | Q(category__icontains=book_search))
-        return render(request, 'books.html', {'b_query':book_search, 'bpost':bpost})
+        return render(request, 'books.html', {'bquery':book_search, 'bpost':bpost})
     else:
         return render(request, 'base.html',{})
     

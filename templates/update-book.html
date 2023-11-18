@@ -1,7 +1,9 @@
 {% extends "base.html"%}
 {% include "partials/links.html"%}
 {% block content%}
+{%load static %}
 {% if request.user.is_authenticated %}
+    
     <div>
         <form action="" method="POST">
             {% csrf_token %}

@@ -8,7 +8,7 @@ urlpatterns = [
     path(" /", forms.loginForm, name ="login-form"),
     path("home/", views.home, name ="home"),
     path("books/",views.books, name="books"),
-    path("book-details/<bpk>",views.book_details, name="book-details"),
+    path("book-details/<int:bpk>/",views.book_details, name="book-details"),
     path("members/",views.members, name="members"),
     path("mdetails/<int:pk>/",views.mdetails, name="mdetails"),
 

@@ -1,8 +1,10 @@
 {% extends "base.html"%}
 {% include "partials/links.html"%}
 {% block content%}
+{%load static%}
 {% if request.user.is_authenticated %}
   <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
+    
     <div class="container">
 
       <div>
@@ -17,7 +19,7 @@
           <!--  -->
         </ul>
 
-        <form class="d-flex" role="search" method="post" action="{% url 'search-book' %}">
+        <form class="d-flex" role="search" method="post" action="{% url 'search-book' %}" onsubmit="return validateSearch()" id="search-form">
           {% csrf_token %}
           <input class="form-control me-2" type="search" placeholder="Search" name="book_search" required-aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
@@ -30,40 +32,42 @@
   </nav>
 
   <br>
-  <table style="width:100%" class="table table-striped table-hover table-sm">
-      <tr class="table-dark">
-        <th>ID:</th>
-        <th>Category:</th>
-        <th>Title:</th>
-        <th>Serial_number:</th>
-        <th>Description:</th>
-        <th>Leased To:</th>
-        <th>Details:</th>
-      </tr>
-      {% for bk in book %}
-      <tr>
-        <td>{{forloop.counter}}</td>
-        <td>{{bk.category}}</td>
-        <td>{{bk.title}}</td>
-        <td>{{bk.s_number}}</td>
-        <td>{{bk.description}}</td>
-        <td><a href="">RegNo</a></td>
-        <td><a href="{% url 'book-details' bk.pk %}"><button class="btn btn-outline-secondary">Explore</button></a></td>
-      </tr>
-      {%endfor%}
+    <div>
+      <table id="search-results" style="width:100%" class="table table-striped table-hover table-sm" >
+        <tr class="table-dark">
+          <th>ID:</th>
+          <th>Category:</th>
+          <th>Title:</th>
+          <th>Serial_number:</th>
+          <th>Description:</th>
+          <th>Leased To:</th>
+          <th>Details:</th>
+        </tr>
+        {% for bk in book %}
+        <tr >
+          <td>{{forloop.counter}}</td>
+          <td>{{bk.category}}</td>
+          <td>{{bk.title}}</td>
+          <td>{{bk.s_number}}</td>
+          <td>{{bk.description}}</td>
+          <td><a href="">RegNo</a></td>
+          <td><a href="{% url 'book-details' bk.pk %}"><button class="btn btn-outline-secondary">Explore</button></a></td>
+        </tr>
+        {%endfor%}
 
-      {% for b in books %}
-      <tr>
-        <td>{{forloop.counter}}</td>
-        <td>{{b.category}}</td>
-        <td>{{b.title}}</td>
-        <td>{{b.s_number}}</td>
-        <td>{{b.description}}</td>
-        <td><a href="">RegNo</a></td>
-        <td><a href="{% url 'book-details' b.pk %}"><button class="btn btn-outline-secondary">Explore</button></a></td>
-      </tr>
-      {% endfor %}
-    </table>
+        {% for b in bpost %}
+        <tr >
+          <td>{{forloop.counter}}</td>
+          <td>{{b.category}}</td>
+          <td>{{b.title}}</td>
+          <td>{{b.s_number}}</td>
+          <td>{{b.description}}</td>
+          <td><a href="">RegNo</a></td>
+          <td><a href="{% url 'book-details' b.pk %}"><button class="btn btn-outline-secondary">Explore</button></a></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
     <hr>
     <div>
 
@@ -86,5 +90,66 @@
       </nav>
     </div>
     <hr>
+
+    <!-- Bootstrap modal for displaying alerts -->
+<div class="modal" tabindex="-1" role="dialog" id="alertModal" data-bs-backdrop="static">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Alert</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                  
+              </button>
+          </div>
+          <div class="modal-body">
+              <h1 id="alertMessage"></h1>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script>
+  function validateSearch() {
+      var searchValue = document.getElementsByName('book_search')[0].value;
+
+      if (searchValue.trim() === "") {
+          // Set the alert message
+          document.getElementById('alertMessage').innerHTML = "Please enter a search term";
+
+          // Show the modal
+          $('#alertModal').modal('show');
+
+          return false;
+      }
+
+      return true;
+  }
+
+  $(document).ready(function() {
+    $('#search-form').on('keyup', 'input[name="book_search"]', function() {
+        var searchTerm = $(this).val();
+        if (searchTerm.length > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '{% url "search-book" %}',
+                data: {
+                    'book_search': searchTerm,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+                    $('#search-results').html(data);
+                }
+            });
+        } else {
+            $('#search-results').empty();
+        }
+    });
+});
+  
+</script>
+
 {%endif%}
 {% endblock %}
